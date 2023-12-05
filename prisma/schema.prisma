@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model books {
+  id          Int     @id @default(autoincrement())
+  name        String? @db.VarChar(100)
+  description String?
+}
+
+model hansics {
+  id   Int     @id(map: "hansic_pkey") @default(autoincrement())
+  name String? @unique(map: "hansic_name_key") @db.VarChar(100)
+  addr String? @unique(map: "hansic_addr_key") @db.VarChar(500)
+  star String? @db.VarChar(50)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model users {
+  name String? @db.VarChar
+  age  Int?
+
+  @@ignore
+}
