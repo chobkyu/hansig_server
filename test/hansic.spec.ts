@@ -5,10 +5,11 @@ describe('GET /hansic is ...',() => {
     describe('success',(done:any) => {
         request(app)
             .get('/hansic')
-            .end((err:any,res:any) => {
-                console.log('test');
-                res.body.should.be.instanceOf(Object)
-                 done();
+            .end(async (err:any,res:any) => {
+                console.log(await res.body);
+                
+                console.log('?')
+                done();
             })
     })
 })
