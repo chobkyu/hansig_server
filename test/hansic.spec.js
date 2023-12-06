@@ -34,4 +34,16 @@ describe('post /user is..', function () {
         }); 
 
     });
+    describe('fail..',()=>{
+        it('입력이 잘못되었을 경우 400으로 응답한다',(done)=>{
+            let body = {
+                name: 'test',
+            }
+            request(app)
+                .post('/users')
+                .send(body)
+                .expect(400)
+                .end(done)
+        })
+    })
 })
