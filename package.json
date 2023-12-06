@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-mocha -p ./tsconfig.json ./test/*.spec.js -w",
+    "test": "ts-mocha -p ./tsconfig.json ./test/*.spec.ts -w",
     "start": "nodemon bin/www.ts",
     "dev": "nodemon --watch \"*.ts\" --exec \"ts-node\" bin/www.ts"
   },

@@ -3,6 +3,6 @@ const ctrl = require('./hansic.ctrl')
 
 const router = express.Router();
 
-router.get('/',ctrl.getAll);
+router.get('/',ctrl.output.getAll);
 
 module.exports = router

@@ -7,7 +7,7 @@ describe('GET /hansic is ...', function () {
         it('return data', async () => {
             request(app)
                 .get('/hansic')
-                .end(async (err, res) => {
+                .end(async (err:any, res:any) => {
 
                     //console.log(res.body)
                     res.body.should.be.instanceOf(Array)

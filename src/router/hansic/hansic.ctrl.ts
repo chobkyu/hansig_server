@@ -1,19 +1,21 @@
 import express,{Express,Request,Response} from 'express';
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+const hansicService = require('../../service/hansic.service');
 
-const getAll = async (req:Request,res:Response) => {
-    try{
-        const data = await prisma.hansics.findMany();
-        //console.log(data)
-        
-        return res.json(data)
-    }catch(err){
-        console.log(err);
+const output = {
+    getAll : async (req:Request,res:Response) => {
+        const response = await hansicService.getAll();
+        if(response.success) return res.json(response);
+        else return res.status(500);
+    
     }
+}
+
+const process = {
 
 }
 
 module.exports ={
-    getAll
+    output,process
 }

@@ -3,6 +3,10 @@ const prisma = new PrismaClient();
 const UserService = require('../../service/user.service')
 import express,{Express,Request,Response} from 'express';
 
+const output = {
+
+}
+
 const process = {
     insertUser : async (req:Request,res:Response) => {
         try{
@@ -26,5 +30,5 @@ const process = {
 }
 
 module.exports ={
-    process
+    output,process
 }
