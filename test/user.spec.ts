@@ -26,6 +26,19 @@ describe('post /user is..', function () {
                 .send(body)
                 .expect(400)
                 .end(done)
+        });
+
+        it('이름이 중복일 경우 409로 응답한다',done => {
+            let body ={
+                name: 'test',
+                age: 5
+            };
+
+            request(app)
+                .post('/users')
+                .send(body)
+                .expect(409)
+                .end(done)
         })
     })
 })
