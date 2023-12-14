@@ -15,17 +15,98 @@ model books {
 
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model users {
+model user {
   id Int @id @default(autoincrement())
   userId String? @db.VarChar(50)
-  userPw String
+  userPw String? @db.VarChar(50)
+  userName String? @db.VarChar(50)
+  userNickName String? @db.VarChar(50)
+  userImgs userImgs[]
+  locations location[]
+  reviews review[]
+  menus menu[]
+}
 
+model userImgs {
+  id Int @id @default(autoincrement())
+  imgUrl String? @db.VarChar(500)
+  useFlag Boolean @default(true)
+  user user @relation(fields:[userId],references:[id])
+  userId Int
+  
+}
+
+model location {
+  id Int @id @default(autoincrement())
+  location String? @db.VarChar(50)
+  user user @relation(fields:[userId],references:[id])
+  userId Int
+  hansics hansics[]
 }
 
 model hansics {
   id   Int     @id(map: "hansic_pkey") @default(autoincrement())
-  name String
-  addr String
-  star String
+  name String? @db.VarChar(100)
+  addr String? @db.VarChar(500)
+  googleStar String? @db.VarChar(100)
+  userStar String? @db.VarChar(50)
+  loacation location @relation(fields:[locationId],references:[id])
+  locationId Int
+  reviews review[]
+  sicdangImgs sicdangImg[]
+  menus menu[]
 }
 
+model sicdangImg {
+  id Int @id @default(autoincrement())
+  imgUrl String? @db.VarChar(500)
+  useFlag Boolean @default(true)
+  hansics hansics @relation(fields:[hansicsId],references:[id])
+  hansicsId Int
+}
+
+model menu {
+  id Int @id @default(autoincrement())
+  name String? @db.VarChar(100)
+  useFlag Boolean @default(false)
+  user user @relation(fields:[userId],references:[id])
+  userId Int
+  hansics hansics @relation(fields:[hansicsId],references:[id])
+  hansicsId Int
+  menuImgs menuImg[]
+}
+
+model menuImg {
+  id Int @id @default(autoincrement())
+  imgUrl String? @db.VarChar(500)
+  useFlag Boolean @default(false)
+  menu menu @relation(fields:[menuId],references:[id])
+  menuId Int
+}
+
+model review {
+  id Int @id @default(autoincrement())
+  review String? @db.VarChar(1000)
+  star Int
+  useFlag Boolean @default(true)
+  user user @relation(fields:[userId],references:[id])
+  userId Int
+  hansics hansics @relation(fields:[hansicsId],references:[id])
+  hansicsId Int
+  reviewImgs reviewImg[]
+  reviewComments reviewComment[]
+}
+
+model reviewImg {
+  id Int @id @default(autoincrement())
+  imgUrl String? @db.VarChar(500)
+  review review @relation(fields:[reviewId],references:[id])
+  reviewId Int
+}
+
+model reviewComment {
+  id Int @id @default(autoincrement())
+  comment String? @db.VarChar(500)
+  review review @relation(fields:[reviewId],references:[id])
+  reviewId Int
+}
