@@ -22,7 +22,6 @@ model user {
   userName String? @db.VarChar(50)
   userNickName String? @db.VarChar(50)
   userImgs userImgs[]
-  locations location[]
   reviews review[]
   menus menu[]
 }
@@ -39,8 +38,6 @@ model userImgs {
 model location {
   id Int @id @default(autoincrement())
   location String? @db.VarChar(50)
-  user user @relation(fields:[userId],references:[id])
-  userId Int
   hansics hansics[]
 }
 
