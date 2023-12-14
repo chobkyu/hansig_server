@@ -45,10 +45,10 @@ model hansics {
   id   Int     @id(map: "hansic_pkey") @default(autoincrement())
   name String? @db.VarChar(100)
   addr String? @db.VarChar(500)
-  googleStar String? @db.VarChar(100)
+  google_star String? @db.VarChar(100)
   userStar String? @db.VarChar(50)
-  loacation location @relation(fields:[locationId],references:[id])
-  locationId Int
+  loacation location @relation(fields:[location_id],references:[id])
+  location_id Int
   reviews review[]
   sicdangImgs sicdangImg[]
   menus menu[]
