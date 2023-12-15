@@ -18,7 +18,7 @@ model books {
 model user {
   id Int @id @default(autoincrement())
   userId String? @db.VarChar(50)
-  userPw String? @db.VarChar(50)
+  userPw String? @db.VarChar(500)
   userName String? @db.VarChar(50)
   userNickName String? @db.VarChar(50)
   userImgs userImgs[]
