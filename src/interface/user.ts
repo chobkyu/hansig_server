@@ -1,4 +1,6 @@
 export interface user {
-    name:string,
-    age:number
+    userId:string,
+    userPw:string,
+    userName:string,
+    userNickName:string
 }
