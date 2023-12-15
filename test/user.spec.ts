@@ -174,9 +174,9 @@ describe('GET /users/userinfo',function() {
             body.should.have.property('userName');
         });
 
-        // it('유저 이미지가 포함되어야 한다.',async () => {
-        //     body.should.have.property('userImg');
-        // });
+        it('유저 이미지가 포함되어야 한다.',async () => {
+            body.should.have.property('userImg');
+        });
 
 
     });
