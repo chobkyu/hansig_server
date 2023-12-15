@@ -1,7 +1,7 @@
 import { success } from "../interface/success";
 import { user } from "../interface/user";
 import { PrismaClient } from "@prisma/client";
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient();
 
