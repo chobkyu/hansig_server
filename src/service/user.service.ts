@@ -12,12 +12,40 @@ class UserService {
         const user:user = this.body;
         console.log(this.body)
         try{
-            await prisma.$queryRaw`insert into users values (${user.name},${user.age})`
+            await prisma.$queryRaw`insert into user(userId,userPw,userName,userNickName) values (${user.userId},${user.userPw})`
 
             return {success:true}
         }catch(err){
             console.error(err);
             return {success:false}
+        }
+    }
+
+    async checkNickName(userName:string){
+        try{
+            const res = await prisma.user.findFirst({
+                where:{
+                    userName:userName
+                },
+            });
+
+            if(res){
+                return {success:false};
+            }else{
+                return {success:true};
+            }
+        }catch(err){
+            console.log(err);
+            return {success:false};
+        }
+    }
+
+    async checkId(userId:string){
+        try{
+
+        }catch(err){
+            console.log(err);
+            return {success:false};
         }
     }
 }
