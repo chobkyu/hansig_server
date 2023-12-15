@@ -6,15 +6,12 @@ import bcrypt from 'bcrypt'
 const prisma = new PrismaClient();
 
 class UserService {
-    body:user;
-    constructor(body:user){
-        this.body = body;
-    }
+   
 
     /**회원 가입 */
-    async insertUser(){
-        const user:user = this.body;
-        console.log(this.body)
+    async insertUser(body:user){
+        const user:user = body;
+        console.log(body)
         
         try{
             //데이터 체크
@@ -26,8 +23,11 @@ class UserService {
             if(!checkId.success) return {success:false,status:409};
 
             //닉네임 중복 체크
-            const checkNickName = await this.checkNickName(user.userNickName);
-            if(!checkNickName.success) return {success:false, status:409};
+            if(user.userNickName!= null){
+                const checkNickName = await this.checkNickName(user.userNickName);
+                if(!checkNickName.success) return {success:false, status:409};
+            }
+           
 
             //비밀번호 암호화
             user.userPw = await this.hashing(user.userPw);
@@ -60,6 +60,8 @@ class UserService {
     /**입력 값 체크 */
     checkData(user:user){
         if(user.userId == null || user.userName == null || user.userNickName == null || user.userPw ==null){
+            return {success:false,status:400}
+        }else if(typeof user.userId != "string" || typeof user.userName != "string" || typeof user.userNickName != "string" || typeof user.userPw != "string" ){
             return {success:false,status:400}
         }else return {success:true};
     }
@@ -104,8 +106,13 @@ class UserService {
     }
 
     /**유저 로그인 */
-    async login() {
-        const user:user = this.body;
+    async login(body:any) {
+        const user = body;
+
+        //데이터 체크
+        const checkData = this.checkLoginData(user);
+        if(!checkData.success) return {success:false,status:400};
+
         const res = await prisma.user.findFirst({
             where:{
                 userId:user.userId
@@ -119,6 +126,15 @@ class UserService {
         if(check) return {success:true,status:201}; //로그인 성공
         else return {success:false, status:400}; //로그인 실패
         
+    }
+
+    /**로그인 데이터 체크 */
+    checkLoginData(user:any){
+        if(user.userId == null || user.userPw ==null){
+            return {success:false,status:400}
+        }else if(typeof user.userId != "string" || typeof user.userPw != "string" ){
+            return {success:false,status:400}
+        }else return {success:true};
     }
 }
 

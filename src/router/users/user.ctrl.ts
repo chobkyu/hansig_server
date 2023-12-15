@@ -11,8 +11,8 @@ const process = {
     insertUser : async (req:Request,res:Response) => {
         try{
             //console.log(req.body)
-            const userservice = new UserService(req.body)
-            const response = await userservice.insertUser();
+            const userservice = new UserService()
+            const response = await userservice.insertUser(req.body);
             
             if(response.success){
                 return res.status(201).end();
@@ -24,6 +24,21 @@ const process = {
 
         }
     },
+
+    login : async(req:Request,res:Response) => {
+        try{
+            console.log(req.body);
+            const userservice = new UserService();
+            const response = await userservice.login(req.body);
+
+            if(response.success) return res.json({token:'testtoken'});
+            else return res.status(response.status).end();
+
+        }catch(err){
+            console.log(err);
+            return res.status(500).end();
+        }
+    }
 }
 
 module.exports ={

@@ -50,12 +50,12 @@ describe('post /user is..', function () {
                 .end(done)
         });
 
-        it('이름이 중복일 경우 409로 응답한다',done => {
+        it('닉네임이 중복일 경우 409로 응답한다',done => {
             let body ={
                 userId:'test3',
                 userPw:'1234',
                 userName:'test_name',
-                userNickName:'giwon'
+                userNickName:'giwon1'
             };
 
             request(app)
@@ -83,30 +83,68 @@ describe('post /user is..', function () {
 });
 
 
-// describe('post /user/login...',function(){
-//     describe('성공 시',() => {
-//         let info = {
-//             userId: 'testId',
-//             userPw: '1234'
-//         }
-//         let body:any;
-//         before(done=> {
-//             request(app)
-//                 .post('/users/login')
-//                 .send(info)
-//                 .expect(201)
-//                 .end((err:any,res:any) => {
-//                     body = res.body;
-//                     done();
-//                 });
-//         });
-//         it('토큰을 반환한다.',()=>{
-//             body.should.have.property('token')
-//         });
+describe('post /user/login...',function(){
+    describe('성공 시',() => {
+        let info = {
+            userId: 'test1',
+            userPw: '1234'
+        }
+        let body:any;
+        before(done=> {
+            request(app)
+                .post('/users/login')
+                .send(info)
+                .expect(201)
+                .end((err:any,res:any) => {
+                    body = res.body;
+                    done();
+                });
+        });
 
-//         it('토큰은 문자열이여야 한다.',()=>{
-//             body.should.be.instanceOf(String)
-//         })
+        it('토큰을 반환한다.',()=>{
+            body.should.have.property('token')
+        });
 
-//     })
-// })
+        it('토큰은 문자열이여야 한다.',()=>{
+            body.token.should.be.instanceOf(String)
+        });
+
+    });
+
+    describe('실패 시',() => {
+        it('입력이 잘못되었을 경우 400으로 응답한다',(done)=>{
+            let body = {
+                userId:'test1',
+                userPw:1234,
+            }
+            request(app)
+                .post('/users/login')
+                .send(body)
+                .expect(400)
+                .end(done)
+        });
+
+        it('입력되지 못 한 값이 있을 경우 400으로 응답한다',(done)=>{
+            let body = {
+                userId:'test1',
+            }
+            request(app)
+                .post('/users/login')
+                .send(body)
+                .expect(400)
+                .end(done)
+        });
+
+        it('일치하는 유저가 없을 경우 404로 응답한다',(done) => {
+            let body = {
+                userId: 'noUser',
+                userPw: 'nonono'
+            }
+            request(app)
+                .post('/users/login')
+                .send(body)
+                .expect(404)
+                .end(done)
+        });
+    });
+});
