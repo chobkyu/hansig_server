@@ -148,3 +148,47 @@ describe('post /user/login...',function(){
         });
     });
 });
+
+describe('GET /users/userinfo',function() {
+    describe('success',async () => {
+        let body:any;
+        before(done=> {
+            request(app)
+                .get('/users/userinfo/test')
+                .end((err:any,res:any) => {
+                    body = res.body.data;
+                    console.log(body)
+                    done();
+                });
+        });
+
+        it('유저 아이디가 포함되어야 한다.', async () =>{
+            body.should.have.property('userId');
+        });
+
+        it('유저 닉네임이 포함되어야 한다.',async () => {
+            body.should.have.property('userNickName');
+        });
+
+        it('유저 이름이 포함되어야 한다.',async () => {
+            body.should.have.property('userName');
+        });
+
+        // it('유저 이미지가 포함되어야 한다.',async () => {
+        //     body.should.have.property('userImg');
+        // });
+
+
+    });
+
+    describe('fail...',async () => {
+        it('해당 유저가 없을 때',async () => {
+            request(app)
+                .get('/users/userinfo/99999')
+                .expect(404)
+                .end(async (err:any, res:any) =>{
+                    console.log(res.body)
+                })
+        });
+    });
+})

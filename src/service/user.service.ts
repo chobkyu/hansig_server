@@ -137,6 +137,24 @@ class UserService {
             return {success:false,status:400}
         }else return {success:true};
     }
+
+
+    async getUser(id:string) {
+        try{
+            const res = await prisma.user.findFirst({
+                where:{
+                    userId:id
+                }
+            });
+            if(res?.userId==null) return {success:false,status:404};
+
+            return {success:true,data:res};
+
+        }catch(err){
+            console.log(err);
+            return {success:false};
+        }
+    }
 }
 
 

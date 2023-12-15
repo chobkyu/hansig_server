@@ -4,7 +4,25 @@ const UserService = require('../../service/user.service')
 import express,{Express,Request,Response} from 'express';
 
 const output = {
+    getUser: async (req:Request,res:Response) => {
+        try{
+            const userservice = new UserService();
+            const id = req.params.id;
+            const response = await userservice.getUser(id);
 
+            if(!response.success) {
+                console.log(response)
+                return res.status(response.status).end();
+            }
+
+            const data = response.data;
+            //console.log(data)
+            return res.json({data});
+        }catch(err){
+            console.log(err);
+            return res.status(500).end();
+        }
+    }
 }
 
 const process = {
