@@ -1,3 +1,4 @@
+import { Login } from "../interface/login";
 import { success } from "../interface/success";
 import { user } from "../interface/user";
 import { PrismaClient } from "@prisma/client";
@@ -106,7 +107,7 @@ class UserService {
     }
 
     /**유저 로그인 */
-    async login(body:any) {
+    async login(body:Login) {
         const user = body;
 
         //데이터 체크
@@ -129,7 +130,7 @@ class UserService {
     }
 
     /**로그인 데이터 체크 */
-    checkLoginData(user:any){
+    checkLoginData(user:Login){
         if(user.userId == null || user.userPw ==null){
             return {success:false,status:400}
         }else if(typeof user.userId != "string" || typeof user.userPw != "string" ){
