@@ -2,6 +2,7 @@ const app = require('../app')
 const request = require('supertest')
 const should = require('should');
 
+/**회원 가입 시 */
 describe('post /user is..', function () {
     let testData = {
         userId:'test',
@@ -83,6 +84,7 @@ describe('post /user is..', function () {
 });
 
 
+/**로그인 시 */
 describe('post /user/login...',function(){
     describe('성공 시',() => {
         let info = {
@@ -149,6 +151,8 @@ describe('post /user/login...',function(){
     });
 });
 
+
+/**유저 정보 읽을 시 */
 describe('GET /users/userinfo',function() {
     describe('success',async () => {
         let body:any;
@@ -192,3 +196,25 @@ describe('GET /users/userinfo',function() {
         });
     });
 })
+
+/**유저 정보 수정 시 */
+describe('/patch user/info', function(){
+    describe('success',async () => {
+        let testData = {
+            userId:'test',
+            userName:'test_Name',
+            userNickName:'giwonLee'
+        }
+        it('201으로 응답한다', (done) => {
+            request(app)
+                .post('/users')
+                .send(testData)
+                .expect(201)
+                .end(done)
+        }); 
+    });
+
+    describe('fail...', async ()=>{
+
+    });
+});
