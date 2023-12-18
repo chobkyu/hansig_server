@@ -139,25 +139,48 @@ class UserService {
     }
 
 
+    /**유저 데이터 조회 */    
     async getUser(userId:number) {
         try{
+            // const res = await prisma.user.findFirst({
+            //     where:{
+            //         id:userId
+            //     },
+            //     include:{
+            //         userImgs:{
+            //             select:{
+            //                 imgUrl:true
+            //             },
+            //             where:{
+            //                 userId:userId,
+            //                 useFlag:true
+            //             }
+            //         }
+            //     }
+            // });
             const res = await prisma.user.findFirst({
-                where:{
-                    id:userId
-                },
-                include:{
+                select:{
+                    id:true,
+                    userName:true,
+                    userNickName:true,
+                    userId:true,
                     userImgs:{
                         select:{
-                            imgUrl:true
+                            imgUrl:true,
                         },
                         where:{
                             userId:userId,
-                            useFlag:true
+                            useFlag:true,
                         }
-                    }
+                    },
+                    
+                },
+                where:{
+                    id:userId
                 }
-                
             });
+
+
             if(res?.userId==null) return {success:false,status:404};
 
             return {success:true,data:res};
