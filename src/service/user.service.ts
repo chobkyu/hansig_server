@@ -142,22 +142,6 @@ class UserService {
     /**유저 데이터 조회 */    
     async getUser(userId:number) {
         try{
-            // const res = await prisma.user.findFirst({
-            //     where:{
-            //         id:userId
-            //     },
-            //     include:{
-            //         userImgs:{
-            //             select:{
-            //                 imgUrl:true
-            //             },
-            //             where:{
-            //                 userId:userId,
-            //                 useFlag:true
-            //             }
-            //         }
-            //     }
-            // });
             const res = await prisma.user.findFirst({
                 select:{
                     id:true,
@@ -173,7 +157,6 @@ class UserService {
                             useFlag:true,
                         }
                     },
-                    
                 },
                 where:{
                     id:userId

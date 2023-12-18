@@ -215,6 +215,39 @@ describe('/patch user/info', function(){
     });
 
     describe('fail...', async ()=>{
+        it('입력값이 잘못 되었을 경우 400으로 응답',(done) => {
+            let testData = {
+                userNickName:54
+            }
+            request(app)
+                .patch('/users/info')
+                .send(testData)
+                .expect(400)
+                .end(done);
+        });
 
+        it('잘못된 입력이 들어왔을 경우 400으로 응답',(done) => {
+            let testData = {
+                date:'2012'
+            }
+            request(app)
+                .patch('/users/info')
+                .send(testData)
+                .expect(400)
+                .end(done);
+        });
+
+        it('로그인이 안되어 있을 시 401로 응답',(done) => {
+            let testData = {
+                userId:'test',
+                userName:'test_Name',
+                userNickName:'giwonLee'
+            }
+            request(app)
+                .patch('/users/info')
+                .send(testData)
+                .expect(401)
+                .end(done);
+        })
     });
 });

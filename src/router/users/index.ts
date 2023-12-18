@@ -7,5 +7,6 @@ router.get('/userinfo/:id',ctrl.output.getUser);
 router.post('/',ctrl.process.insertUser);
 router.post('/login',ctrl.process.login);
 
+router.patch('/info', ctrl.process.updateUserData);
 
 module.exports = router

@@ -56,6 +56,15 @@ const process = {
             console.log(err);
             return res.status(500).end();
         }
+    },
+
+    updateUserData : async(req:Request,res:Response) => {
+        try{
+
+        }catch(err){
+            console.log(err);
+            return res.status(500).end();
+        }
     }
 }
 
