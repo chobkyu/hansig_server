@@ -158,7 +158,7 @@ describe('GET /users/userinfo',function() {
         let body:any;
         before(done=> {
             request(app)
-                .get('/users/userinfo/test')
+                .get('/users/userinfo/32')
                 .end((err:any,res:any) => {
                     body = res.body.data;
                     console.log(body)
@@ -179,7 +179,7 @@ describe('GET /users/userinfo',function() {
         });
 
         it('유저 이미지가 포함되어야 한다.',async () => {
-            body.should.have.property('userImg');
+            body.should.have.property('userImgs');
         });
 
 

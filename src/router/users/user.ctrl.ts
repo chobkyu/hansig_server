@@ -7,7 +7,7 @@ const output = {
     getUser: async (req:Request,res:Response) => {
         try{
             const userservice = new UserService();
-            const id = req.params.id;
+            const id = parseInt(req.params.id);
             const response = await userservice.getUser(id);
 
             if(!response.success) {

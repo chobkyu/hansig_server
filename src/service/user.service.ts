@@ -139,12 +139,24 @@ class UserService {
     }
 
 
-    async getUser(id:string) {
+    async getUser(userId:number) {
         try{
             const res = await prisma.user.findFirst({
                 where:{
-                    userId:id
+                    id:userId
+                },
+                include:{
+                    userImgs:{
+                        select:{
+                            imgUrl:true
+                        },
+                        where:{
+                            userId:userId,
+                            useFlag:true
+                        }
+                    }
                 }
+                
             });
             if(res?.userId==null) return {success:false,status:404};
 
