@@ -3,12 +3,12 @@ import { success } from "../interface/success";
 import { user } from "../interface/user";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt'
+const jwt = require('../util/jwt-util');
 
 const prisma = new PrismaClient();
 
 class UserService {
    
-
     /**회원 가입 */
     async insertUser(body:user){
         const user:user = body;
@@ -124,8 +124,12 @@ class UserService {
         }
         const check = await bcrypt.compare(user.userPw,res?.userPw);
 
-        if(check) return {success:true,status:201}; //로그인 성공
-        else return {success:false, status:400}; //로그인 실패
+        if(check) { //로그인 성공
+            const accessToken = jwt.sign(res);
+            return {success:true,status:201,token:accessToken};
+        }else return { //로그인 실패
+            success:false, status:400
+        }; 
         
     }
 
