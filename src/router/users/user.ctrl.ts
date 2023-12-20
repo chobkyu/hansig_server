@@ -64,7 +64,8 @@ const process = {
     /**유저 정보 업데이트 */
     updateUserData : async(req:Request,res:Response) => {
         try{
-
+            console.log('test')
+            return res.status(400)
         }catch(err){
             console.log(err);
             return res.status(500).end();

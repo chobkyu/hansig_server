@@ -245,9 +245,12 @@ describe('/patch user/info', function(){
             }
             request(app)
                 .patch('/users/info')
+                .set("Authorizaiton","Bearer testtoken")
                 .send(testData)
                 .expect(401)
                 .end(done);
-        })
+        });
+
+        
     });
 });
