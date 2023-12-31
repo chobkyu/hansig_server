@@ -7,12 +7,16 @@ const output = {
     getAll : async (req:Request,res:Response) => {
         const response = await hansicService.getAll();
         if(response.success) return res.json(response);
-        else return res.status(500);
-    
+        else return res.status(500);  
     },
-    menu:
+    create:async(req:Request,res:Response)=>
     {
-        getAll:async (req:Request,res:Response) => {
+        const restaurantId= req.params.id;//body parsing해야.
+        const response=await hansicService.create(restaurantId);
+        return res.status(201);
+    }
+    menu:{
+        getAll :async (req:Request,res:Response) => {
             const response = await hansicService.menu.getAll();
             if(response.success) return res.json(response);
             else return res.status(500);
