@@ -1,43 +1,91 @@
-import express,{Express,Request,Response} from 'express';
-import { PrismaClient } from "@prisma/client";
+import {PrismaClient} from "@prisma/client";
+import express, {Express, Request, Response} from 'express';
 const prisma = new PrismaClient();
-const hansicService = require('../../service/hansic.service');
-
+const hansicServiceClass = require('../../service/hansic.service');
+const hansicService = new hansicServiceClass();
 const output = {
-    getAll : async (req:Request,res:Response) => {
-        const response = await hansicService.getAll();
-        if(response.success) return res.json(response);
-        else return res.status(500);  
-    },
-    create:async(req:Request,res:Response)=>
-    {
-        const restaurantId= req.params.id;
-        const response=await hansicService.create(restaurantId,req);
-        return res.status(201);
-    },
-    menu:{
-        getAll :async (req:Request,res:Response) => {
-            const response = await hansicService.menu.getAll();
-            if(response.success) return res.json(response);
-            else return res.status(500);
-        },
-        get:async (req:Request,res:Response) => {
-            const response = await hansicService.menu.get(parseInt(req.params.id));
-            if(response.success) return res.json(response);
-            else if(res.locals.errmsg)
-            {
-                return res;
-            } 
-            else{return res.status(500);}
-            
-        }
+  getAll : async (req: Request, res: Response) => {
+    try{
+    const response =await hansicService.getAll();
+    if (response.success){
+      return res.json(response);
     }
+    else{
+      return res.status(204).end();
+    }}
+    catch(err)
+    {
+      return res.status(500).end();
+    }
+  },
+  get : async (req: Request, res: Response) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(401);
+      } else {
+        const response = await hansicService.get(id);
+        if(response.success){
+        return res.json(response);
+    }
+    else
+    {
+        return res.status(204).end();
+    }
+      }
+    } catch (err) {
+      return res.status(500).end();
+    }
+  },
+  getFromLocation : async (req: Request, res: Response) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(401);
+      } else {
+        if (id > 0 && id < 13) {
+          const response = await hansicService.getFromLocation(id);
+          return res.json(response);
+        } else {
+          return res.status(404).end();
+        }
+      }
+    } catch (err) {
+      return res.status(500).end();
+    }
+  }
+  // create:async(req:Request,res:Response)=>
+  // {
+  //     const restaurantId= req.params.id;
+  //     const response=await hansicService.create(restaurantId,req);
+  //     return res.status(201);
+  // },
+  // menu:{
+  //     getAll :async (req:Request,res:Response) => {
+  //         const response = await hansicService.menu.getAll();
+  //         if(response.success) return res.json(response);
+  //         else return res.status(500);
+  //     },
+  //     get:async (req:Request,res:Response) => {
+  //         const response = await
+  //         hansicService.menu.get(parseInt(req.params.id));
+  //         if(response.success) return res.json(response);
+  //         else if(res.locals.errmsg)
+  //         {
+  //             return res;
+  //         }
+  //         else{return res.status(500);}
+
+  //     }
+  // }
 }
 
-const process = {
+const process =
+    {
 
 }
 
-module.exports ={
-    output,process
-}
+    module.exports = {
+      output,
+      process
+    }

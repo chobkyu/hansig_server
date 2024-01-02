@@ -10,14 +10,15 @@ const ctrl = require('./hansic.ctrl')
 ㄴ 리뷰 댓글 입력 시
 ㄴ 리뷰 댓글 삭제 시
 */
-/*
 const router = express.Router();
 //review
-router.get('/',ctrl.output.getAll);
+router.get('/all',ctrl.output.getAll);
+router.get('/loc/:id',ctrl.output.getFromLocation);
+router.get('/:id',ctrl.output.get);
+/*
 router.post('/:id',ctrl.process.create);
 router.patch('/:id',ctrl.process.update);
 router.delete('/:id',ctrl.process.delete);
-router.get('/:id',ctrl.output.menu.get);
 //menu
 router.get('/:id/menu',ctrl.output.menu.getAll);
 router.post('/:id/menu',ctrl.process.menu.create);
@@ -28,4 +29,5 @@ router.get('/:id/menu/:menuId',ctrl.output.menu.get);
 router.get('/:id/comment',ctrl.output.comment.getAll);
 router.post('/:id/comment',ctrl.process.comment.create);
 router.delete('/:id/comment',ctrl.process.comment.delete);
-module.exports = router*/
+*/
+module.exports = router
