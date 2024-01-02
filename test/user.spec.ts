@@ -153,7 +153,7 @@ describe('post /user/login...',function(){
 
 
 /**유저 정보 읽을 시 */
-describe('GET /users/userinfo',function() {
+describe('GET /users/userinfo/:id ',function() {
     describe('success',async () => {
         let body:any;
         before(done=> {
@@ -161,7 +161,7 @@ describe('GET /users/userinfo',function() {
                 .get('/users/userinfo/32')
                 .end((err:any,res:any) => {
                     body = res.body.data;
-                    console.log(body)
+                    console.log(body);
                     done();
                 });
         });
@@ -186,14 +186,23 @@ describe('GET /users/userinfo',function() {
     });
 
     describe('fail...',async () => {
-        it('해당 유저가 없을 때',async () => {
+        it('해당 유저가 없을 때 404 리턴',async () => {
             request(app)
                 .get('/users/userinfo/99999')
                 .expect(404)
                 .end(async (err:any, res:any) =>{
-                    console.log(res.body)
+                    console.log(res.body);
                 })
         });
+
+        it('number 형식의 id가 아닐 때 400리턴',async() => {
+            request(app)
+                .get('/users/userinfo/기원이')
+                .expect(400)
+                .end(async (err:any, res:any) => {
+                    console.log(res.body);
+                });
+        })
     });
 })
 
