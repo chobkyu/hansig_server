@@ -11,10 +11,10 @@ const output = {
     },
     create:async(req:Request,res:Response)=>
     {
-        const restaurantId= req.params.id;//body parsing해야.
-        const response=await hansicService.create(restaurantId);
+        const restaurantId= req.params.id;
+        const response=await hansicService.create(restaurantId,req);
         return res.status(201);
-    }
+    },
     menu:{
         getAll :async (req:Request,res:Response) => {
             const response = await hansicService.menu.getAll();
