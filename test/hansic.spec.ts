@@ -23,26 +23,57 @@ describe('GET /hansic is ...', function () {
 describe('GET /hansic/all ...',function(){
     describe('성공 시',() => {
         
-        it('상태코드 200 리턴',async ()=>{
-            
+        let body : any;
+
+        before(done => {
+            request(app)
+                .get('hansic/all')
+                .expect(200)
+                .end((err:any,res:any) =>{
+                    body = res.body.data;
+                    done();
+                });
         });
+        
 
         it('리스트 형식의 데이터를 반환한다',async ()=>{
-
+            body.should.be.instanceOf(Array);
         });
 
-        it('리스트가 null 값이 아닐 때 ',async () => {
-
+        it('리스트 각 요소에는 name이 포함되어야 한다.',async () => {
+            body[0].should.have.property('name');
         });
 
-        it('리스트 각 요소에는 포함되어야 한다.',async () => {
+        it('리스트 각 요소에는 addr이 포함되어야 한다.',async () => {
+            body[0].should.have.property('addr');
+        });
 
+        it('리스트 각 요소에는 userStar가 포함되어야 한다.',async () => {
+            body[0].should.have.property('userStar');
+        });
+
+        it('리스트 각 요소에는 google_star가 포함되어야 한다.',async () => {
+            body[0].should.have.property('google_star');
+        });
+
+        it('리스트 각 요소에는 location이 포함되어야 한다.',async () => {
+            /**location name, not location id */
+            body[0].should.have.property('location');
+        });
+
+        it('리스트 각 요소에는 location_id가 포함되어야 한다.',async () => {
+            body[0].should.have.property('location_id');
+        });
+
+        it('리스트 각 요소에는 imgUrl이 포함되어야 한다.',async () => {
+            body[0].should.have.property('imgUrl');
         });
 
         
     });
 
     describe('fail...',async () => {
+        /**테스트 코드는 추가를 안하지만 해당 비즈니스 로직 작성 */
         it('리스트가 null 일 때 204를 리턴한다.',async () => {
 
         });
