@@ -161,7 +161,7 @@ describe('GET /users/userinfo/:id ',function() {
                 .get('/users/userinfo/32')
                 .end((err:any,res:any) => {
                     body = res.body.data;
-                    console.log(body)
+                    console.log(body);
                     done();
                 });
         });
