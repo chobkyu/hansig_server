@@ -56,7 +56,7 @@ class HansicService{
         }
 
     }
-    async getAll()
+    async getAll():Promise<hansics[]|false>
     {
         try{
             const data = await prisma.hansics.findMany({
@@ -64,14 +64,14 @@ class HansicService{
                 
             if(data)
             {
-                return {data,success:true};
+                return data;
             }
             else
             {
-                return {success:false};
+                return false;
             }
         }catch(err){
-            return {success:false}
+            return false
         }
     }
     // async create(restaurantId:number,req:Request):Promise<boolean>

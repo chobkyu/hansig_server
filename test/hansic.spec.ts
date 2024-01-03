@@ -9,7 +9,7 @@ describe('GET /hansic is ...', function () {
                 .get('/hansic')
                 .end(async (err: any, res: any) => {
 
-                    console.log(res.body)
+                    //console.log(res.body)
                     res.body.should.be.instanceOf(Array)
                     //done();
 
@@ -31,7 +31,6 @@ describe('GET /hansic/all ...', function () {
                 .expect(200)
                 .end((err: any, res: any) => {
                     body = res.body.data;
-                    console.log(body);
                     done();
                 });
         });
@@ -251,8 +250,3 @@ describe('GET /hansic/:id ...', function () {
         });
     });
 });
-
-
-
-
-
