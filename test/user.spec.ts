@@ -5,7 +5,7 @@ const should = require('should');
 /**회원 가입 시 */
 describe('post /user is..', function () {
     let testData = {
-        userId:'test',
+        userId:'test2',
         userPw:'1234',
         userName:'test_name',
         userNickName:'giwon'
@@ -265,3 +265,12 @@ describe('/patch user/info', function(){
         
     });
 });
+
+after(done => {
+    request(app)
+    .get('/users/userinfo/1')
+    .end((err:any,res:any) => {
+       
+        done();
+    });
+})

@@ -71,6 +71,23 @@ const process = {
             console.log(err);
             return res.status(500).end();
         }
+    },
+
+    //테스트 계정 삭제용
+    deleteTestUser :async (req:Request, res:Response) => {
+        try{
+            const userservice = new UserService();
+            const response = await userservice.deleteTestUser();
+
+            if(response.success){
+                return res.json({response});
+            }else{
+                return res.status(404);
+            }
+        }catch(err){
+            console.log(err);
+            return res.status(500).end();
+        }
     }
 }
 

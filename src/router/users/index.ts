@@ -10,4 +10,8 @@ router.post('/login',ctrl.process.login);
 
 router.patch('/info', authJWT, ctrl.process.updateUserData);
 
+
+//테스트 계정 삭제용
+router.delete('/deleteTestUser',ctrl.process.deleteTestUser)
+
 module.exports = router

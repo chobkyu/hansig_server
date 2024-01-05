@@ -177,6 +177,23 @@ class UserService {
             return {success:false};
         }
     }
+
+    async deleteTestUser() {
+        try{
+            await prisma.user.deleteMany({
+                where: {
+                    userId : {
+                        in: ['test1','test2']
+                    }
+                }
+            });
+
+            return {success: true};
+        }catch(err){
+            console.log(err);
+            return {success:false}
+        }
+    }
 }
 
 
