@@ -34,7 +34,7 @@ describe('post /user is..', function () {
                 .send(body)
                 .expect(201)
                 .end(done)
-        }); 
+        });  
 
     });
     describe('fail..',()=>{
@@ -158,8 +158,10 @@ describe('GET /users/userinfo/:id ',function() {
         let body:any;
         before(done=> {
             request(app)
-                .get('/users/userinfo/32')
+                .get('/users/userinfo/1')
+                .expect(200)
                 .end((err:any,res:any) => {
+                    console.log(res)
                     body = res.body.data;
                     console.log(body);
                     done();

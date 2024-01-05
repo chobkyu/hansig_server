@@ -6,10 +6,12 @@ const authJWT = (req:Request,res:Response,next:NextFunction) => {
         const token = req.headers.authorization.split('Bearer ')[1];
         const result = verify(token);
 
+        console.log(result)
         if(result.success){
-            req.body.user.id = result.id;
-            req.body.user.userId = result.userId;
-            req.body.user.userNickName = result.userNickName;
+            console.log(result.decodedData)
+            req.body.id = result.decodedData.id;
+            req.body.userId = result.decodedData.userId;
+            req.body.userNickName = result.decodedData.userNickName;
             next();
         } else{
             res.status(401).send({
