@@ -268,7 +268,7 @@ describe('/patch user/info', function(){
 
 after(done => {
     request(app)
-    .get('/users/userinfo/1')
+    .delete('/users/userinfo/1')
     .end((err:any,res:any) => {
        
         done();
