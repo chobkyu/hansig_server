@@ -250,8 +250,3 @@ describe('GET /hansic/:id ...', function () {
         });
     });
 });
-
-
-
-
-

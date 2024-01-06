@@ -1,6 +1,6 @@
 import express, {Request,Response} from "express"
 import morgan from "morgan"
-
+require("dotenv").config();
 const app = express();
 const cors = require('cors');
 const hansic = require('./src/router/hansic')
@@ -9,7 +9,6 @@ const user = require('./src/router/users')
 if(process.env.NODE_ENV!=='test'){
     app.use(morgan('dev'))
 }
-
 // app.get("/",(req:Request,res:Response) => {
 //     res.send("hello world");
 // });

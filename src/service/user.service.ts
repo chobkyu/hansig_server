@@ -8,7 +8,6 @@ const jwt = require('../util/jwt-util');
 const prisma = new PrismaClient();
 
 class UserService {
-   
     /**회원 가입 */
     async insertUser(body:user){
         const user:user = body;
@@ -180,4 +179,4 @@ class UserService {
 }
 
 
-module.exports = UserService
+module.exports = {UserService}
