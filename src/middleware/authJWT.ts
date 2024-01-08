@@ -19,6 +19,11 @@ const authJWT = (req:Request,res:Response,next:NextFunction) => {
                 message:result.msg
             });
         }
+    }else{
+        res.status(401).send({
+            ok:false,
+            message:'you have not token'
+        })
     }
 }
 

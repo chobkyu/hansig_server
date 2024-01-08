@@ -9,6 +9,10 @@ const output = {
         try{
             const userservice = new UserService();
             const id = parseInt(req.params.id);
+            console.log(id);
+            //number 타입 id가 아닐시
+            if(Number.isNaN(id)) return res.json({id}).status(400).end();
+
             const response = await userservice.getUser(id);
 
             if(!response.success) {
@@ -18,7 +22,9 @@ const output = {
 
             const data = response.data;
             //console.log(data)
-            return res.json({data});
+
+            const header = req.headers
+            return res.json({data,header});
         }catch(err){
             console.log(err);
             return res.status(500).end();
@@ -67,6 +73,23 @@ const process = {
             console.log('test')
             console.log(req.body)
             return res.status(400)
+        }catch(err){
+            console.log(err);
+            return res.status(500).end();
+        }
+    },
+
+    //테스트 계정 삭제용
+    deleteTestUser :async (req:Request, res:Response) => {
+        try{
+            const userservice = new UserService();
+            const response = await userservice.deleteTestUser();
+
+            if(response.success){
+                return res.status(204).end();
+            }else{
+                return res.status(404).end();
+            }
         }catch(err){
             console.log(err);
             return res.status(500).end();
