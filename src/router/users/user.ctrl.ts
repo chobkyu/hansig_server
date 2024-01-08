@@ -9,6 +9,10 @@ const output = {
         try{
             const userservice = new UserService();
             const id = parseInt(req.params.id);
+            console.log(id);
+            //number 타입 id가 아닐시
+            if(Number.isNaN(id)) return res.json({id}).status(400).end();
+
             const response = await userservice.getUser(id);
 
             if(!response.success) {
@@ -18,7 +22,9 @@ const output = {
 
             const data = response.data;
             //console.log(data)
-            return res.json({data});
+
+            const header = req.headers
+            return res.json({data,header});
         }catch(err){
             console.log(err);
             return res.status(500).end();
@@ -80,7 +86,7 @@ const process = {
             const response = await userservice.deleteTestUser();
 
             if(response.success){
-                return res.json({response});
+                return res.status(204);
             }else{
                 return res.status(404);
             }

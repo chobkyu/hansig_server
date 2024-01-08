@@ -18,7 +18,10 @@ module.exports = {
     verify: (token:string) => {
         let decoded = null;
         
-        if(token == 'testtoken') return {success:true,decodedData:{id:32,userId:'testtest',userNickName:'giwon'}}  //테스트용 코드
+        if(token == 'testtoken') {
+            console.log('test user token')
+            return {success:true,decodedData:{id:1,userId:'test',userNickName:'giwon'}}  //테스트용 코드
+        }
 
         try{
             decoded = jwt.verify(token,secret);

@@ -168,7 +168,7 @@ class UserService {
             });
 
 
-            if(res?.userId==null) return {success:false,status:404};
+            if(res?.userId==null) return {success:false,status:404,msg:userId};
 
             return {success:true,data:res};
 
