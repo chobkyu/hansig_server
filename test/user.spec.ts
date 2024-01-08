@@ -221,7 +221,7 @@ describe('/patch users/info', function(){
         }
         it('201으로 응답한다', (done) => {
             request(app)
-                .post('/users')
+                .patch('/users/info')
                 .set("authorization","Bearer testtoken")
                 .send(testData)
                 .expect(201)
@@ -262,7 +262,7 @@ describe('/patch users/info', function(){
             }
             request(app)
                 .patch('/users/info')
-                .set("authorization","Bearer testtoken")
+                .set("authorization","Bearer testtokerrn")
                 .send(testData)
                 .expect(401)
                 .end(done);

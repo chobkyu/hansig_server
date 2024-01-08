@@ -9,7 +9,7 @@ const output = {
         try{
             const userservice = new UserService();
             const id = parseInt(req.params.id);
-            console.log(id);
+            console.log(req.body);
             //number 타입 id가 아닐시
             if(Number.isNaN(id)) return res.json({id}).status(400).end();
 
@@ -70,8 +70,14 @@ const process = {
     /**유저 정보 업데이트 */
     updateUserData : async(req:Request,res:Response) => {
         try{
-            console.log('test')
+            const userservice = new UserService();
             console.log(req.body)
+            
+            const response = await userservice.updateUserInfo(req.body);
+
+            if(response.success) return res.status(201).end();
+            else return res.status(response.status).end();
+
             return res.status(400)
         }catch(err){
             console.log(err);
