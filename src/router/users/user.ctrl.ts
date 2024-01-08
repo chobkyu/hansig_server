@@ -8,7 +8,7 @@ const output = {
     getUser: async (req:Request,res:Response) => {
         try{
             const userservice = new UserService();
-            const id = parseInt(req.params.id);
+            const id = parseInt(req.body.userData.id);
             console.log(req.body);
             //number 타입 id가 아닐시
             if(Number.isNaN(id)) return res.json({id}).status(400).end();
@@ -22,9 +22,8 @@ const output = {
 
             const data = response.data;
             //console.log(data)
-
-            const header = req.headers
-            return res.json({data,header});
+            
+            return res.json({data});
         }catch(err){
             console.log(err);
             return res.status(500).end();
