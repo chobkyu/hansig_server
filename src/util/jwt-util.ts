@@ -27,7 +27,7 @@ module.exports = {
             decoded = jwt.verify(token,secret);
             return {success:true, decodedData : decoded}
         }catch(err){
-            console.log(err);
+            //console.log(err);
             return {success:false,msg:err};
         }
     }

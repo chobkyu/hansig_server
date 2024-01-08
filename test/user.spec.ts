@@ -153,13 +153,12 @@ describe('post /user/login...',function(){
 
 
 /**유저 정보 읽을 시 */
-/**비즈니스 로직 수정 예정 */
-describe('GET /users/userinfo/:id ',function() {
+describe('GET /users/userinfo ',function() {
     describe('success', async ()=> {
         let body:any;
         before(done=> {
             request(app)
-                .get('/users/userinfo/1')
+                .get('/users/userinfo')
                 .set("authorization","Bearer testtoken")
                 .end((err:any,res:any) => {
                     console.log(res.body.header)
@@ -221,7 +220,7 @@ describe('/patch users/info', function(){
         }
         it('201으로 응답한다', (done) => {
             request(app)
-                .post('/users')
+                .patch('/users/info')
                 .set("authorization","Bearer testtoken")
                 .send(testData)
                 .expect(201)
@@ -262,7 +261,7 @@ describe('/patch users/info', function(){
             }
             request(app)
                 .patch('/users/info')
-                .set("authorization","Bearer testtoken")
+                .set("authorization","Bearer testtokerrn")
                 .send(testData)
                 .expect(401)
                 .end(done);
