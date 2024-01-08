@@ -180,7 +180,8 @@ class UserService {
 
     async deleteTestUser() {
         try{
-            await prisma.user.deleteMany({
+            console.log('??')
+            const res = await prisma.user.deleteMany({
                 where: {
                     userId : {
                         in: ['test1','test2']

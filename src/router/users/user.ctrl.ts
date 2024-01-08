@@ -86,9 +86,9 @@ const process = {
             const response = await userservice.deleteTestUser();
 
             if(response.success){
-                return res.status(204);
+                return res.status(204).end();
             }else{
-                return res.status(404);
+                return res.status(404).end();
             }
         }catch(err){
             console.log(err);
